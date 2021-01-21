@@ -270,9 +270,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Teleport()
         {
+            /*
             m_CharacterController.enabled = false;
             m_CharacterController.transform.position = teleportLocation.transform.position;
             m_CharacterController.enabled = true;
+            */
+
+            m_CharacterController.Move(teleportLocation.transform.position);
         }
     }
 }

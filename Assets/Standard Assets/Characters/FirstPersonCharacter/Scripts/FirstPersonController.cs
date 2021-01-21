@@ -134,12 +134,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MouseLook.UpdateCursorLock();
 
-
-            if (this.tag == "trigger") // detects if you have entered trigger and runs Teleport() if you have
-            {
-                Teleport();
-                Debug.Log("Triggered");
-            }
         }
 
 
@@ -264,6 +258,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.CompareTag("trigger"))
+            {
+                Debug.Log("Triggered!");
+                Teleport();
+            }
+        }
+
         private void Teleport()
         {
             m_CharacterController.enabled = false;

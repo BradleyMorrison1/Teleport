@@ -29,6 +29,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
         [SerializeField] private GameObject teleportLocation; // used to determine where to teleport
+        [SerializeField] private GameObject checkPoint; // Checkpoint Object
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -260,6 +261,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void OnTriggerEnter(Collider other)
         {
+            var resetLocation = new Vector3();
+            resetLocation = (teleportLocation.transform.position - gameObject.transform.position);
+            
+
             if(other.CompareTag("trigger"))
             {
                 Debug.Log("Triggered!");
@@ -267,9 +272,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             if (other.CompareTag("killbox"))
             {
-                var resetLocation = new Vector3();
-                resetLocation = (teleportLocation.transform.position - gameObject.transform.position);
                 m_CharacterController.Move(resetLocation);
+            }
+            if (other.CompareTag("Checkpoint"))
+            {
+                resetLocation = checkPoint.transform.position - gameObject.transform.position;
             }
         }
     }
